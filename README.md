@@ -2,7 +2,13 @@
 
 ![Version](https://img.shields.io/badge/version-0.0.1-blue?style=flat-square)
 
-A simple free open-source web arcade game built entirely with HTML, CSS, and vanilla JavaScript. Play multiple browser games from a single platform.
+Webcade is a free, open-source browser game built entierly with HTML, CSS, and vanilla JavaScript. Play multiple lightweight web games from a single unified platform - no frameworks required.
 
 > [!NOTE]
-> This project is still in early development stage.
+> This project is currenlty in early development.
+
+## Planned Games
+
+- [ ] Chess Game
+- [ ] Ping Pong
+- [ ] Snake Game
