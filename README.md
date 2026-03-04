@@ -12,3 +12,7 @@ Webcade is a free, open-source browser game built entierly with HTML, CSS, and v
 - [ ] Chess Game
 - [ ] Ping Pong
 - [ ] Snake Game
+
+## License
+
+This project is licensed under the [MIT License](LICENSE)
