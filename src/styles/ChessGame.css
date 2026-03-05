@@ -1,0 +1,16 @@
+.board-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+}
+
+.board-container>* {
+    background-color: rgb(233, 228, 228);
+    border: 1px solid #000;
+}
+
+.board-container .black {
+    background-color: #585757;
+}
