@@ -11,6 +11,29 @@
     border: 1px solid #000;
 }
 
-.board-container .black {
+.box,
+.box-shaded {
+    position: relative;
+}
+
+.board-container .box {
     background-color: #585757;
+}
+
+.piece,
+.piece-black {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    background-color: #c4c4c4;
+}
+
+.piece-black {
+    background-color: #242424;
 }
