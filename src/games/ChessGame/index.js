@@ -1,6 +1,10 @@
 window.startChessGame = function () {
-    loadPieces(loadBoard());
-    console.log("Chess Game loaded.");
+    const pieces = loadPieces(loadBoard());
+    pieces.forEach(piece => {
+        piece.addEventListener("click", () => {
+            console.log("Piece clicked");
+        });
+    });
 }
 
 function loadBoard() {
@@ -33,43 +37,52 @@ function loadBoard() {
 }
 
 function loadPieces(positions) {
-    const pieces = {
-        pawn: { symbol: "P", points: 1, count: 8, },
-        rook: { symbol: "R", points: 2, count: 2, },
-        knight: { symbol: "N", points: 2, count: 2, },
-        bishop: { symbol: "B", points: 2, count: 2, },
-        queen: { symbol: "Q", points: 5, count: 1, },
-        king: { symbol: "K", points: 30, count: 1, },
-    };
+    const basePath = "src/games/ChessGame/assets/";
+    const pieces = [];
     for (const position of positions) {
         const [col, row] = position.split('');
         if (!([8, 7, 2, 1].includes(+row))) continue;
         const box = document.getElementById(position);
-        const piece = document.createElement("div");
-        piece.id = ["piece", +row < 4 ? "white" : "black", position].join('-');
+        const piece = document.createElement("img");
+        const shade = +row < 4 ? "white" : "black";
+        const id = [shade, position];
         piece.className = "piece" + (+row < 4 ? "-black" : '');
+        piece.src = basePath + shade + "-";
         if ([8, 1].includes(+row)) {
             switch (col) {
                 case 'A': case 'H':
-                    piece.textContent = pieces["rook"]["symbol"];
+                    piece.src = piece.src
+                        + `rook.${piece.src.includes("white")
+                            ? "png"
+                            : "webp"}`;
+                    id.unshift("rook");
                     break;
                 case 'B': case 'G':
-                    piece.textContent = pieces["knight"]["symbol"];
+                    piece.src = piece.src + "knight.webp";
+                    id.unshift("knight");
                     break
                 case 'C': case 'F':
-                    piece.textContent = pieces["bishop"]["symbol"];
+                    piece.src = piece.src + "bishop.webp";
+                    id.unshift("bishop");
                     break;
                 default:
-                    piece.textContent =
+                    piece.src =
                         +row === 8 ?
                             col === 'D'
-                                ? pieces["queen"]["symbol"]
-                                : pieces["king"]["symbol"]
+                                ? piece.src + "king.png"
+                                : piece.src + "queen.webp"
                             : col === 'D'
-                                ? pieces["king"]["symbol"]
-                                : pieces["queen"]["symbol"];
+                                ? piece.src + "queen.webp"
+                                : piece.src + "king.webp";
+                    id.unshift(piece.src.includes("king") ? "king" : "queen");
             }
-        } else piece.textContent = pieces["pawn"]["symbol"];
+        } else {
+            piece.src = piece.src + "pawn.webp";
+            id.unshift("pawn");
+        }
+        piece.id = id.join('-');
         box?.appendChild(piece);
+        pieces.push(piece);
     }
+    return pieces;
 }

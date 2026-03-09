@@ -29,11 +29,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    height: 50%;
-    background-color: #c4c4c4;
-}
-
-.piece-black {
-    background-color: #242424;
+    width: 90%;
+    height: 90%;
 }
