@@ -1,9 +1,17 @@
+import { Pawn } from "./pieces.js";
+
 window.startChessGame = function () {
     const pieces = loadPieces(loadBoard());
     pieces.forEach(piece => {
-        piece.addEventListener("click", () => {
-            console.log("Piece clicked");
-        });
+        const args = piece.id.split('-').slice(1, 3);
+        if (piece.id.includes("pawn")) {
+            const pawn = new Pawn(...args, false);
+            piece.addEventListener("click", () => {
+                if (pawn.clicked) pawn.highlightMoves();
+                else pawn.removeHighlights();
+                pawn.clicked = !pawn.clicked;
+            });
+        }
     });
 }
 

@@ -56,6 +56,7 @@ function loadScript(path, parentID = null) {
     return new Promise((resolve, reject) => {
         const script = document.createElement("script");
         script.src = path;
+        script.type = "module";
         script.onload = resolve;
         script.onerror = reject;
         parentID
