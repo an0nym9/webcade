@@ -7,7 +7,16 @@ window.startChessGame = function () {
         if (piece.id.includes("pawn")) {
             const pawn = new Pawn(...args, false);
             piece.addEventListener("click", () => {
-                if (pawn.clicked) pawn.highlightMoves();
+                if (pawn.clicked) {
+                    pawn.highlightMoves();
+                    document.querySelectorAll(".highlighted")
+                        ?.forEach(highlighted => {
+                            highlighted.addEventListener("click", () => {
+                                pawn.move(highlighted.id);
+                                pawn.removeHighlights();
+                            });
+                        });
+                }
                 else pawn.removeHighlights();
                 pawn.clicked = !pawn.clicked;
             });

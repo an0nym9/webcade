@@ -12,13 +12,9 @@ class Piece {
     removeHighlights() {
         const className = "highlighted";
         document.querySelectorAll('.' + className)
-            ?.forEach(highlighted => {
+            .forEach(highlighted => {
                 highlighted.classList.remove(className);
-                highlighted.style.backgroundColor =
-                    highlighted.classList.contains("box-shaded")
-                        ? "none"
-                        : "#585757";
-                console.log(highlighted.id);
+                highlighted.style.backgroundColor = '';
             });
     }
 }
@@ -27,22 +23,31 @@ export class Pawn extends Piece {
     constructor(team, position, clicked, moved = false) {
         super(team, position, clicked);
         this.moved = moved;
+        this.element = document.getElementById(`pawn-${team}-${position}`);
+        this.parent = document.getElementById(position);
     }
 
     highlightMoves() {
         const [col, row] = this.position.split('');
         const n = Number(row);
+        const distance = this.moved ? 1 : 2;
         const wside = this.team === "white";
         for (let r = wside ? n + 1 : n - 1;
-            wside ? r <= n + 2 : r >= n - 2;
+            wside ? r <= n + distance : r >= n - distance;
             wside ? r++ : r--) {
             const box = document.getElementById(`${col}${r}`);
-            if (box) box.classList.add("highlighted");
+            if (!box) throw new Error(`Box "${col}${r}" not found.`);
+            box.classList.add("highlighted");
         }
     }
 
-    move() {
-        if (!this.moved)
-            this.moved = true;
+    move(boxID = '') {
+        const newBox = document.getElementById(boxID);
+        if (!newBox) throw new Error("Unknown box!");
+        this.parent.removeChild(this.element);
+        newBox.appendChild(this.element);
+        this.position = boxID;
+        this.parent = newBox;
+        if (!this.moved) this.moved = true;
     }
 }
