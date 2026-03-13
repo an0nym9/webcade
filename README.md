@@ -33,7 +33,7 @@ Additional games may be added in the future.
 ### Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/webcade.git
+git clone https://github.com/an0nym9/webcade.git
 ```
 
 ### Run the project
@@ -41,6 +41,8 @@ git clone https://github.com/yourusername/webcade.git
 Open the `index.html` file in your browser.
 
 No dependencies or build steps are required.
+
+---
 
 ## License
 
