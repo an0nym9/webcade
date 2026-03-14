@@ -4,22 +4,27 @@ window.startChessGame = function () {
     const pieces = loadPieces(loadBoard());
     pieces.forEach(piece => {
         const args = piece.id.split('-').slice(1, 3);
-        if (piece.id.includes("pawn")) {
-            const pawn = new Pawn(...args, false);
-            piece.addEventListener("click", () => {
-                if (pawn.clicked) {
-                    pawn.highlightMoves();
-                    document.querySelectorAll(".highlighted")
-                        ?.forEach(highlighted => {
-                            highlighted.addEventListener("click", () => {
-                                pawn.move(highlighted.id);
-                                pawn.removeHighlights();
+        const pieceName = piece.id.split('-')[0];
+        switch (pieceName) {
+            case "pawn":
+                const pawn = new Pawn(...args, false);
+                piece.addEventListener("click", () => {
+                    if (pawn.clicked) {
+                        pawn.highlightMoves();
+                        document.querySelectorAll(".highlighted")
+                            ?.forEach(highlighted => {
+                                highlighted.addEventListener("click", () => {
+                                    pawn.move(highlighted.id);
+                                    pawn.removeHighlights();
+                                });
                             });
-                        });
-                }
-                else pawn.removeHighlights();
-                pawn.clicked = !pawn.clicked;
-            });
+                    }
+                    else pawn.removeHighlights();
+                    pawn.clicked = !pawn.clicked;
+                });
+                break;
+            default:
+                console.log(`Logic for '${pieceName}' is currently not supported.`)
         }
     });
 }
@@ -27,8 +32,8 @@ window.startChessGame = function () {
 function loadBoard() {
     const board = document.createElement("div");
     const boxSize = {
-        width: "50px",
-        height: "50px",
+        width: "60px",
+        height: "60px",
     };
     board.className = "board-container";
     const positions = [];

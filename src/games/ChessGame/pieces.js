@@ -1,8 +1,7 @@
 class Piece {
-    constructor(team, position, clicked = false) {
+    constructor(team, position) {
         this.team = team;
         this.position = position;
-        this.clicked = clicked;
     }
 
     highlightMoves() {
@@ -20,8 +19,8 @@ class Piece {
 }
 
 export class Pawn extends Piece {
-    constructor(team, position, clicked, moved = false) {
-        super(team, position, clicked);
+    constructor(team, position, moved = false) {
+        super(team, position);
         this.moved = moved;
         this.element = document.getElementById(`pawn-${team}-${position}`);
         this.parent = document.getElementById(position);
@@ -32,11 +31,21 @@ export class Pawn extends Piece {
         const n = Number(row);
         const distance = this.moved ? 1 : 2;
         const wside = this.team === "white";
+        for (let i = -1; i <= 1; i += 2) {
+            const newCol = String.fromCharCode(col.charCodeAt(0) + i);
+            const box = document.getElementById(`${newCol}${wside ? n + 1 : n - 1}`);
+            if (!box || !(new Array(...box.children))
+                .map(child => child.className.split('-')[0])
+                .includes("piece")) break;
+            box.classList.add("highlighted");
+        }
         for (let r = wside ? n + 1 : n - 1;
             wside ? r <= n + distance : r >= n - distance;
             wside ? r++ : r--) {
             const box = document.getElementById(`${col}${r}`);
-            if (!box) throw new Error(`Box "${col}${r}" not found.`);
+            if (!box || (new Array(...box.children))
+                .map(child => child.className.split('-')[0])
+                .includes("piece")) break;
             box.classList.add("highlighted");
         }
     }
