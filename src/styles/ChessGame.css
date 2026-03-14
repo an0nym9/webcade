@@ -7,7 +7,7 @@
 }
 
 .board-container>* {
-    background-color: rgb(233, 228, 228);
+    background-color: rgb(221, 220, 218);
     border: 1px solid #000;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .board-container .box {
-    background-color: #585757;
+    background-color: #106d1f;
 }
 
 .piece,
@@ -34,5 +34,5 @@
 }
 
 .highlighted {
-    background-color: rgb(104, 194, 44) !important;
+    border: #16e4ff 2px solid;
 }
